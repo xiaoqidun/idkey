@@ -1,5 +1,5 @@
 # idkey
-golang argon2id 密码hash和验证
+Golang Argon2id 密码hash和验证
 # 安装方法
 go get -u github.com/xiaoqidun/idkey
 # 使用方法

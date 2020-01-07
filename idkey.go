@@ -19,7 +19,7 @@ type Data struct {
 	KeyLen  uint32 // 密文长度
 }
 
-func Encode(password string) string {
+func Encode(password []byte) string {
 	salt := generateSalt(16)
 	data := &Data{
 		Hash:    nil,
@@ -30,7 +30,7 @@ func Encode(password string) string {
 		KeyLen:  32,
 	}
 	hash := argon2.IDKey(
-		[]byte(password),
+		password,
 		data.Salt,
 		data.Time,
 		data.Memory,
@@ -92,13 +92,13 @@ func Decode(passwordHash string) (data *Data, err error) {
 	return
 }
 
-func Verify(password, passwordHash string) bool {
+func Verify(password []byte, passwordHash string) bool {
 	data, err := Decode(passwordHash)
 	if err != nil {
 		return false
 	}
 	hash := argon2.IDKey(
-		[]byte(password),
+		password,
 		data.Salt,
 		data.Time,
 		data.Memory,

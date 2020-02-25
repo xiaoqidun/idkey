@@ -1,5 +1,5 @@
-module idkey
+module github.com/xiaoqidun/idkey
 
 go 1.13
 
-require golang.org/x/crypto v0.0.0-20191227163750-53104e6ec876
+require golang.org/x/crypto v0.0.0-20200221231518-2aa609cf4a9d

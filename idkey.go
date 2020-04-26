@@ -11,23 +11,33 @@ import (
 )
 
 type Data struct {
-	Hash    []byte // 密码密文
-	Salt    []byte // 加密盐值
+	EncodeOptions        // 加密选项
+	Hash          []byte // 密码密文
+	Salt          []byte // 加密盐值
+}
+
+type EncodeOptions struct {
 	Time    uint32 // 时间参数
 	Memory  uint32 // 内存参数
 	Threads uint8  // 线程参数
 	KeyLen  uint32 // 密文长度
 }
 
-func Encode(password []byte) string {
+func Encode(password []byte, options *EncodeOptions) string {
 	salt := generateSalt(16)
 	data := &Data{
-		Hash:    nil,
-		Salt:    salt,
-		Time:    1,
-		Memory:  64 * 1024,
-		Threads: 4,
-		KeyLen:  32,
+		Hash: nil,
+		Salt: salt,
+	}
+	if options != nil {
+		data.EncodeOptions = *options
+	} else {
+		data.EncodeOptions = EncodeOptions{
+			Time:    1,
+			Memory:  64 * 1024,
+			Threads: 4,
+			KeyLen:  32,
+		}
 	}
 	hash := argon2.IDKey(
 		password,

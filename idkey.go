@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-// Data 密码编码结构
+// Data 密文编码结构
 type Data struct {
 	EncodeOptions        // 加密选项
 	Hash          []byte // 密码密文
@@ -61,7 +61,7 @@ func Encode(password []byte, options *EncodeOptions) string {
 	)
 }
 
-// Decode 获取密文的编码结构
+// Decode 获取密文编码结构
 func Decode(passwordHash string) (data *Data, err error) {
 	data = &Data{}
 	params := strings.Split(passwordHash, "$")

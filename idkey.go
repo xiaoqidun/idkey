@@ -10,12 +10,14 @@ import (
 	"strings"
 )
 
+// Data 密码编码结构
 type Data struct {
 	EncodeOptions        // 加密选项
 	Hash          []byte // 密码密文
 	Salt          []byte // 加密盐值
 }
 
+// EncodeOptions 密文编码选项
 type EncodeOptions struct {
 	Time    uint32 // 时间参数
 	Memory  uint32 // 内存参数
@@ -23,6 +25,7 @@ type EncodeOptions struct {
 	KeyLen  uint32 // 密文长度
 }
 
+// Encode 将密码编码成密文
 func Encode(password []byte, options *EncodeOptions) string {
 	salt := generateSalt(16)
 	data := &Data{
@@ -58,6 +61,7 @@ func Encode(password []byte, options *EncodeOptions) string {
 	)
 }
 
+// Decode 获取密文的编码结构
 func Decode(passwordHash string) (data *Data, err error) {
 	data = &Data{}
 	params := strings.Split(passwordHash, "$")
@@ -102,6 +106,7 @@ func Decode(passwordHash string) (data *Data, err error) {
 	return
 }
 
+// Verify 验证密码编码后是否等于密文
 func Verify(password []byte, passwordHash string) bool {
 	data, err := Decode(passwordHash)
 	if err != nil {

@@ -1,5 +1,5 @@
 # idkey [![PkgGoDev](https://pkg.go.dev/badge/github.com/xiaoqidun/idkey)](https://pkg.go.dev/github.com/xiaoqidun/idkey)
-Go 语言Argon2id密码hash和验证
+Go语言Argon2id密码哈希和验证库
 
 # 安装方法
 ```shell
